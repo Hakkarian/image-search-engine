@@ -1,0 +1,24 @@
+{
+  "name": "image-search-engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hakkarian/image-search-engine.git"
+  },
+  "keywords": [],
+  "author": "theola",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hakkarian/image-search-engine/issues"
+  },
+  "homepage": "https://github.com/Hakkarian/image-search-engine#readme",
+  "dependencies": {
+    "weaviate-ts-client": "^2.0.0"
+  }
+}
