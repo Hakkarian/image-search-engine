@@ -7,33 +7,34 @@ const client = weaviate.client({
 })
 
 const schemaConfig = {
-  'class': "Meme",
-  'vectorizer': "img2vec-neural",
-  'vectorIndexType': "hnsw",
-  'moduleConfig': {
+  class: "Meme",
+  vectorizer: "img2vec-neural",
+  vectorIndexType: "hnsw",
+  moduleConfig: {
     "img2vec-neural": {
-      'imageFields': ["image"],
+      imageFields: ["image"],
     },
   },
-  'properties': [
+  properties: [
     {
-      'name': "image",
-      'dataType': ["blob"],
+      name: "image",
+      dataType: ["blob"],
     },
     {
-      'name': "text",
-      'dataType': ["string"],
+      name: "text",
+      dataType: ["string"],
     },
   ],
 };
 
+// await client.schema.classCreator().withClass(schemaConfig).do();
 // const res = await client.schema.getter().do();
 
 // const img = fs.readFileSync('./img/frontend.jpg');
 
 // const b64 = Buffer.from(img).toString('base64');
 
-// const res = await client.data.creator().withClassName('Meme').withProperties({
+// await client.data.creator().withClassName('Meme').withProperties({
 //     image: b64,
 //     text: 'frontend meme'
 // }).do()
@@ -58,9 +59,9 @@ const promises = imgFiles.map(async (imgFile) => {
     .do();
 });
 await Promise.all(promises)
-console.log('123')
 
-const test = Buffer.from(fs.readFileSync("./test.jpg")).toString("base64");
+const test = Buffer.from(fs.readFileSync("./patrick.png")).toString("base64");
+
 const resImage = await client.graphql
   .get()
   .withClassName("Meme")
@@ -68,5 +69,7 @@ const resImage = await client.graphql
   .withNearImage({ image: test })
   .withLimit(1)
   .do();
+
+// Write result to filesystem
 const result = resImage.data.Get.Meme[0].image;
 fs.writeFileSync("./result.jpg", result, "base64");
